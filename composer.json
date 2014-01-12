@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "repositories":[
+        {
+            "type": "composer",
+            "url": "http://packagist.cn"
+        },
+        {
+            "packagist": false
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+<xml>
+    <ToUserName><![CDATA[<?php echo $this->userName; ?>]]></ToUserName>
+    <FromUserName><![CDATA[<?php echo $this->hostName; ?>]]></FromUserName>
+    <CreateTime><?php echo time(); ?></CreateTime>
+    <MsgType><![CDATA[<?php echo $this->msgType; ?>]]></MsgType>
+    <Content><![CDATA[<?php echo $this->content; ?>]]></Content>
+    <FuncFlag>0</FuncFlag>
+</xml>
