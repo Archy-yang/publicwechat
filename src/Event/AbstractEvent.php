@@ -1,9 +1,18 @@
 <?php
 
-namespace Controller;
+namespace Event;
 
-abstract class AbstractController
+abstract class AbstractEvent
 {
+    protected $postObj;
+
+    protected $response;
+
+    public function __construct($postObj)
+    {
+        $this->postObj = $postObj;
+    }
+
     public function getUrlResponse($url)
     {
         $urlResponse = json_decode(file_get_contents($url));
@@ -13,5 +22,10 @@ abstract class AbstractController
         }
 
         return $urlResponse;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
     }
 }

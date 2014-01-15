@@ -34,6 +34,6 @@ class NewsMsgResponse extends AbstractResponse
             }
         }
 
-        include_once(__DIR__.'/../views/news.xml');
+        include_once(__DIR__.'/../views/news.php.xml');
     }
 }

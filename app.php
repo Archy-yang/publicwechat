@@ -1,29 +1,32 @@
 <?php
-use Response\NewsMsgResponse;
-use Controller\WeatherController;
+
+use Controller\DispacherController;
+use Controller\CheckSignatureController;
+
+date_default_timezone_set('Asia/Hong_Kong');
 
 include_once(__DIR__.'/vendor/autoload.php');
-$postObj = (object) [
-    'FromUserName' => 'UserName:archy',
-    'ToUserName' => 'HostName:hbu',
-];
 
-$content = '这是一次测试';
+$postStr = $GLOBALS['HTTP_RAW_POST_DATA'];
 
-//$textMsg = new TextMsgResponse($postObj, 'text');
+$head = $_GET;
 
-//echo $textMsg->setContents($content)->send();
+if (array_key_exists('echostr', $head)) {
+    $checkSignature = new CheckSignatureController($conf['token']);
 
-$articles['1']['title'] = 'test';
-$articles['2']['description'] = '这是一次测试测试';
-$articles['1']['picUrl'] = '#';
-$articles['1']['url'] = '#';
+    echo $checkSignature->valid($head);
 
-//$newsMsg = new NewsMsgResponse($postObj, 'news');
+    exit;
+}
 
-//echo $newsMsg->setArticles($articles)->send();a
+if (empty($postStr)) {
+    exit;
+}
 
-$weather = new WeatherController('101010100');
+$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-$weather->getWeatherText();
-echo $weather->postWeatherText($postObj);
+$dispacher = new DispacherController($conf, $postObj);
+
+$event = $dispacher->getEvent();
+
+$response = $event->setContent()->setResponse()->getResponse();

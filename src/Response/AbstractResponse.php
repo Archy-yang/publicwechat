@@ -10,11 +10,10 @@ abstract class AbstractResponse implements ResponseInterface
 
     protected $msgType;
 
-    public function __construct($postObj, $msgType)
+    public function __construct($postObj)
     {
         $this->userName = $postObj->FromUserName;
         $this->hostName = $postObj->ToUserName;
-        $this->msgType = $msgType;
     }
 
     public function send()
